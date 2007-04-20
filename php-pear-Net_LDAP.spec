@@ -10,7 +10,7 @@ Release:	%mkrel 1
 License:	PHP License
 Group:		Development/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tar.bz2
-Patch0:		%{name}-path_fix.patch
+Patch0:		%{name}-path_fix.diff
 URL:		http://pear.php.net/package/Net_LDAP/
 Requires(post): php-pear
 Requires(preun): php-pear
@@ -43,7 +43,7 @@ done
 
 # strip away annoying ^M
 find -type f | grep -v ".gif" | grep -v ".png" | grep -v ".jpg" | xargs dos2unix -U
-%patch0 -p1
+%patch0 -p0
 
 %install
 rm -rf %{buildroot}
