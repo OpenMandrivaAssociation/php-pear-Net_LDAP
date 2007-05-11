@@ -43,7 +43,10 @@ done
 
 # strip away annoying ^M
 find -type f | grep -v ".gif" | grep -v ".png" | grep -v ".jpg" | xargs dos2unix -U
+
+pushd %{_pearname}-%{version}
 %patch0 -p0
+popd
 
 %install
 rm -rf %{buildroot}
@@ -84,5 +87,3 @@ rm -rf %{buildroot}
 %{_datadir}/pear/%{_class}/*.php
 %{_datadir}/pear/%{_class}/%{_subclass}
 %{_datadir}/pear/packages/%{_pearname}.xml
-
-
