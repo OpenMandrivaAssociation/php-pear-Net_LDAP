@@ -5,18 +5,17 @@
 
 Summary:	%{_pearname} - OO interface for searching and manipulating LDAP-entries
 Name:		php-pear-%{_pearname}
-Version:	0.7.2
-Release:	%mkrel 2
+Version:	1.1.3
+Release:	%mkrel 1
 License:	PHP License
 Group:		Development/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tar.bz2
-Patch0:		%{name}-path_fix.diff
+Patch0:		%{name}-1.1.3-fix-path.patch
 URL:		http://pear.php.net/package/Net_LDAP/
 Requires(post): php-pear
 Requires(preun): php-pear
 Requires:	php-pear
 BuildArch:	noarch
-BuildRequires:	dos2unix
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -37,15 +36,8 @@ find . -type d -perm 0700 -exec chmod 755 {} \;
 find . -type f -perm 0555 -exec chmod 755 {} \;
 find . -type f -perm 0444 -exec chmod 644 {} \;
 
-for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do
-    if [ -e "$i" ]; then rm -rf $i; fi >&/dev/null
-done
-
-# strip away annoying ^M
-find -type f | grep -v ".gif" | grep -v ".png" | grep -v ".jpg" | xargs dos2unix -U
-
 pushd %{_pearname}-%{version}
-%patch0 -p0
+%patch0 -p 1
 popd
 
 %install
