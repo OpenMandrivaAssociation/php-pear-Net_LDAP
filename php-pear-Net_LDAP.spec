@@ -5,13 +5,12 @@
 
 Summary:	%{_pearname} - OO interface for searching and manipulating LDAP-entries
 Name:		php-pear-%{_pearname}
-Version:	1.1.3
-Release:	%mkrel 3
+Version:	1.1.5
+Release:	%mkrel 1
 License:	PHP License
 Group:		Development/PHP
-Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tar.bz2
-Patch0:		%{name}-1.1.3-fix-path.patch
 URL:		http://pear.php.net/package/Net_LDAP/
+Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tar.bz2
 Requires(post): php-pear
 Requires(preun): php-pear
 Requires:	php-pear
@@ -29,27 +28,20 @@ handling, schemas, etc), but has:
 In PEAR status of this package is: %{_status}.
 
 %prep
-
 %setup -q -c
-
-find . -type d -perm 0700 -exec chmod 755 {} \;
-find . -type f -perm 0555 -exec chmod 755 {} \;
-find . -type f -perm 0444 -exec chmod 644 {} \;
-
-pushd %{_pearname}-%{version}
-%patch0 -p 1
-popd
 
 %install
 rm -rf %{buildroot}
 
-install -d %{buildroot}%{_datadir}/pear/%{_class}/%{_subclass}
+install -d -m 755 %{buildroot}%{_datadir}/pear/%{_class}/%{_subclass}
 
-install %{_pearname}-%{version}/*.php %{buildroot}%{_datadir}/pear/%{_class}
-install %{_pearname}-%{version}/%{_subclass}/*.php %{buildroot}%{_datadir}/pear/%{_class}/%{_subclass}
+install -m 644 %{_pearname}-%{version}/*.php \
+    %{buildroot}%{_datadir}/pear/%{_class}
+install -m 644 %{_pearname}-%{version}/%{_subclass}/*.php \
+    %{buildroot}%{_datadir}/pear/%{_class}/%{_subclass}
 
-install -d %{buildroot}%{_datadir}/pear/packages
-install -m0644 package.xml %{buildroot}%{_datadir}/pear/packages/%{_pearname}.xml
+install -d -m 755 %{buildroot}%{_datadir}/pear/packages
+install -m 644 package.xml %{buildroot}%{_datadir}/pear/packages/%{_pearname}.xml
 
 %post
 if [ "$1" = "1" ]; then
