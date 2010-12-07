@@ -4,7 +4,7 @@
 
 Name:		php-pear-%{upstream_name}
 Version:	1.1.5
-Release:	%mkrel 2
+Release:	%mkrel 3
 Summary:	OO interface for searching and manipulating LDAP-entries
 License:	PHP License
 Group:		Development/PHP
