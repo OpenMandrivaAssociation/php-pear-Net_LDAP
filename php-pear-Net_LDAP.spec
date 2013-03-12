@@ -4,7 +4,7 @@
 
 Name:		php-pear-%{upstream_name}
 Version:	1.1.5
-Release:	%mkrel 5
+Release:	6
 Summary:	OO interface for searching and manipulating LDAP-entries
 License:	PHP License
 Group:		Development/PHP
@@ -15,7 +15,6 @@ Requires(preun): php-pear
 Requires:	php-pear
 BuildRequires:	php-pear
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 %{upstream_name} is a clone of Perl's Net::LDAP object interface to
@@ -30,8 +29,6 @@ handling, schemas, etc), but has:
 mv package.xml %{upstream_name}-%{version}/%{upstream_name}.xml
 
 %install
-rm -rf %{buildroot}
-
 cd %{upstream_name}-%{version}
 pear install --nodeps --packagingroot %{buildroot} %{upstream_name}.xml
 rm -rf %{buildroot}%{_datadir}/pear/.??*
@@ -41,23 +38,6 @@ rm -rf %{buildroot}%{_datadir}/pear/tests
 
 install -d %{buildroot}%{_datadir}/pear/packages
 install -m 644 %{upstream_name}.xml %{buildroot}%{_datadir}/pear/packages
-
-%clean
-rm -rf %{buildroot}
-
-%post
-%if %mdkversion < 201000
-pear install --nodeps --soft --force --register-only \
-    %{_datadir}/pear/packages/%{upstream_name}.xml >/dev/null || :
-%endif
-
-%preun
-%if %mdkversion < 201000
-if [ "$1" -eq "0" ]; then
-    pear uninstall --nodeps --ignore-errors --register-only \
-        %{upstream_name} >/dev/null || :
-fi
-%endif
 
 %files
 %defattr(-,root,root)
