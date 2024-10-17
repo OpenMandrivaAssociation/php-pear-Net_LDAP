@@ -8,7 +8,7 @@ Release:	7
 Summary:	OO interface for searching and manipulating LDAP-entries
 License:	PHP License
 Group:		Development/PHP
-URL:		http://pear.php.net/package/Net_LDAP/
+URL:		https://pear.php.net/package/Net_LDAP/
 Source0:	http://download.pear.php.net/package/%{upstream_name}-%{version}.tar.bz2
 Requires(post): php-pear
 Requires(preun): php-pear
